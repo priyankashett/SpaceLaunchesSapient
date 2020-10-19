@@ -60,7 +60,6 @@ componentDidMount(){
 
 
 launchesYear(value){
-console.log("space launch");
     if(value===true){
         this.props.dispatch(fetchSuccessfulLaunch());
     }

@@ -21,16 +21,16 @@ export default function spaceReducer(state = initialState,action){
             default:
                 return state;
 
-        case  FETCH_SPACE_LAUNCH:
+        case FETCH_SPACE_LAUNCH:
             return{
                 ...state,
                 launchSpace:[...action.payload.spaces]
             };
-            case FETCH_LAUNCH_SUCCESS:
-                return{
-                    ...state,
-                    launchSuccess:[...action.payload.launchSuccess]
-                };
+        case FETCH_LAUNCH_SUCCESS:
+            return{
+                ...state,
+                launchSuccess:[...action.payload.launchSuccess]
+            }
     }
 
 }
