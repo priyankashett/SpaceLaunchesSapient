@@ -5,6 +5,7 @@ import {connect } from 'react-redux';
 import { fetchAllSpaceLaunches } from './fetchAllSpaceLaunch';
 import SpaceLaunch from './SpaceLaunch.js'
 import { fetchSuccessfulLaunch } from './fetchSuccessfulLaunch';
+import {fetchByYear} from './fetchByYear';
    
 const SpaceLaunchDisplay ={
     display:'block',
@@ -51,6 +52,7 @@ constructor(){
 super();
 this.displayYearLaunch = this.displayYearLaunch.bind(this);
 this.launchesYear = this.launchesYear.bind(this);
+this.launchesSuccessful=this.launchesSuccessful.bind(this);
 }
 
 componentDidMount(){
@@ -59,11 +61,19 @@ componentDidMount(){
 
 
 
-launchesYear(value){
+launchesSuccessful(value){
     if(value===true){
         this.props.dispatch(fetchSuccessfulLaunch());
     }
 }
+
+launchesYear(value){
+    console.log(value)
+    if(value){
+        this.props.dispatch(fetchByYear(true,true,value));
+    }
+}
+
 
 
 
@@ -75,10 +85,10 @@ displayYearLaunch (years){
                     <table width ="200px" height ="1px" padding="10px" ><tbody>
                         <tr role ="row">
                             <td  width ="30%" role ="gridCell" key={index}>{(index+1)%2!==0 && 
-                                <button type="button" key={index} onClick={(e)=>this.launchesYear(e)} style={listStyle}>{yearDisp.year}</button>}
+                                <button type="button" key={index} onClick={(e)=>this.launchesYear(yearDisp.year)} style={listStyle}>{yearDisp.year}</button>}
                             </td>
                             <td width= "30%" role ="gridCell" key={index}>{(index+1)%2 ===0  && 
-                                <button type="button" key={index} onClick={(e)=>this.launchesYear(e)} style={listStyle}>{yearDisp.year}</button>}
+                                <button type="button" key={index} onClick={(e)=>this.launchesYear(yearDisp.year)} style={listStyle}>{yearDisp.year}</button>}
                             </td>
                         </tr></tbody></table>
                 </div>
@@ -99,7 +109,7 @@ render(){
             <h5 style ={launchYear}>Launch Year</h5>
             <div>{this.displayYearLaunch(this.props.year)}</div>
             <div style = {launchYear}><h5>Successful Launch</h5></div>
-            <table><tbody><tr><td width ="30%"><button onClick= {(e)=>this.launchesYear(true)} style ={listStyle}>true</button>
+            <table><tbody><tr><td width ="30%"><button onClick= {(e)=>this.launchesSuccessful(true)} style ={listStyle}>true</button>
             </td><td width="30%"><button  style ={listStyle}>false</button></td></tr></tbody></table>
             <div style = {launchYear}><h5>Successful Landing</h5></div>
             <table><tbody><tr><td width ="30%"><button style ={listStyle}>true</button>

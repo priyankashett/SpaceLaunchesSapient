@@ -65,7 +65,7 @@ displaySpaceLaunches(spaces){
     let content3=[];
     let content4 =[];
     spaces.map((spacesDisplay,index)=>{
-        let launchSuccess = _.get(spacesDisplay,'launch_success').toString();
+        let launchSuccess = _.get(spacesDisplay,'launch_success','').toString();
         let spaceslength = spaces.length/4;
         let indexLength = Math.round(spaceslength);
         if(index>=0 && index<indexLength){
