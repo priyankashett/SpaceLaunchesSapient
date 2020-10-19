@@ -8,7 +8,7 @@ export  function fetchByYear(successLaunch,successLand,yearLaunched){
         return  fetch(`https://api.spacexdata.com/v3/launches?limit=100&amp;launch_success=${successLaunch}&amp;land_success=${successLand}&amp;launch_year=${yearLaunched}`)
         .then(res => res.json())
         .then(years => {
-            years.map(year=>year.launch_year===yearLaunched.toString() && yearsSpaceLaunched.push(year))
+            years.map(year=>year.launch_year===yearLaunched.toString() && year.launch_success===true && yearsSpaceLaunched.push(year))
             dispatch(fetchAllSpaceLaunch(yearsSpaceLaunched));
         return years;
     })

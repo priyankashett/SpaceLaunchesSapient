@@ -6,6 +6,7 @@ import { fetchAllSpaceLaunches } from './fetchAllSpaceLaunch';
 import SpaceLaunch from './SpaceLaunch.js'
 import { fetchSuccessfulLaunch } from './fetchSuccessfulLaunch';
 import {fetchByYear} from './fetchByYear';
+import {fetchSuccessfulLand} from './fetchSuccessfulLand';
    
 const SpaceLaunchDisplay ={
     display:'block',
@@ -53,6 +54,8 @@ super();
 this.displayYearLaunch = this.displayYearLaunch.bind(this);
 this.launchesYear = this.launchesYear.bind(this);
 this.launchesSuccessful=this.launchesSuccessful.bind(this);
+this.landSuccessful=this.landSuccessful.bind(this);
+this.state={launched:true};
 }
 
 componentDidMount(){
@@ -62,15 +65,17 @@ componentDidMount(){
 
 
 launchesSuccessful(value){
-    if(value===true){
-        this.props.dispatch(fetchSuccessfulLaunch());
-    }
+        this.setState({launched:value});
+        this.props.dispatch(fetchSuccessfulLaunch(value));
+}
+
+landSuccessful(value){
+    this.props.dispatch(fetchSuccessfulLand(value));
 }
 
 launchesYear(value){
-    console.log(value)
     if(value){
-        this.props.dispatch(fetchByYear(true,true,value));
+        this.props.dispatch(fetchByYear(this.state.launched,true,value));
     }
 }
 
@@ -110,10 +115,10 @@ render(){
             <div>{this.displayYearLaunch(this.props.year)}</div>
             <div style = {launchYear}><h5>Successful Launch</h5></div>
             <table><tbody><tr><td width ="30%"><button onClick= {(e)=>this.launchesSuccessful(true)} style ={listStyle}>true</button>
-            </td><td width="30%"><button  style ={listStyle}>false</button></td></tr></tbody></table>
+            </td><td width="30%"><button onClick= {(e)=>this.launchesSuccessful(false)} style ={listStyle}>false</button></td></tr></tbody></table>
             <div style = {launchYear}><h5>Successful Landing</h5></div>
-            <table><tbody><tr><td width ="30%"><button style ={listStyle}>true</button>
-            </td><td width="30%"><button style ={listStyle}>false</button></td></tr></tbody></table>
+            <table><tbody><tr><td width ="30%"><button onClick= {(e)=>this.landSuccessful(true)} style ={listStyle}>true</button>
+            </td><td width="30%"><button onClick= {(e)=>this.landSuccessful(false)} style ={listStyle}>false</button></td></tr></tbody></table>
            <div style = {SpaceLaunchDisplay}><SpaceLaunch/></div>
         </div>
     );

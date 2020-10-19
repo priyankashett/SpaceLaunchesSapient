@@ -66,6 +66,7 @@ displaySpaceLaunches(spaces){
     let content4 =[];
     spaces.map((spacesDisplay,index)=>{
         let launchSuccess = _.get(spacesDisplay,'launch_success','').toString();
+        let landSuccess = _.get(spacesDisplay,'rocket.first_stage.cores[0].land_success') && _.get(spacesDisplay,'rocket.first_stage.cores[0].land_success').toString();
         let spaceslength = spaces.length/4;
         let indexLength = Math.round(spaceslength);
         if(index>=0 && index<indexLength){
@@ -74,7 +75,7 @@ displaySpaceLaunches(spaces){
             <span style={displayStyle}>{spacesDisplay.mission_name}</span><br/>
             Launch Year :<span style={displayStyle}>{spacesDisplay.launch_year}</span><br/>
             Successful Launch:<span style={displayStyle}>{launchSuccess}</span><br/>
-            Successful Landing:<span></span>
+            Successful Landing:<span style={displayStyle}>{landSuccess}</span>
             </td></tr>)
             }
             else if(index>=indexLength && index<(2*indexLength)){
